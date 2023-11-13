@@ -19,16 +19,43 @@ db.init_app(app)
 def home():
     return '<h1> Code Challenge 1 </h1>'
 
-@app.route('/restaurants', methods= ['GET'])
+@app.route('/restaurants', methods=['GET'])
 def restaurants():
-    if request.method == 'GET':
-        restaurant_list = [r.to_dict() for r in Restaurant.query.all()]
-        response = make_response(
-            restaurant_list, 
+    restaurant_list = [restaurant.to_dict() for restaurant in Restaurant.query.all()]
+    return make_response(
+        restaurant_list, 
+        200
+    )
+
+@app.route('/restaurants/<int:id>', methods= ['GET', 'DELETE'])
+def restaurant_by_id(id):
+    restaurant = Restaurant.query.filter_by(id=id).first()
+    if not restaurant:
+        return make_response(
+            {"error": "Restaurant not found"}, 
+            404
+        )
+    elif request.method == 'GET':
+        return make_response(
+            restaurant.to_dict(rules=('pizzas',)),
             200
         )
+    elif request.method == 'DELETE':
+        db.session.delete(restaurant)
+        db.session.commit()
+        return make_response(
+            {},
+            200
+        )
+    
+@app.route('/pizzas', methods = ['GET'])
+def pizzas():
+    pizza_list = [pizza.to_dict() for pizza in Pizza.query.all()]
+    return make_response(
+        pizza_list,
+        200
+    )
 
-        return response
 @app.route('/restaurant_pizzas', method = ['POST'])
 def new_restaurant():
     data = request.get_json()
