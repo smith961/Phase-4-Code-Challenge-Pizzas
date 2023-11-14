@@ -15,10 +15,10 @@ with app.app_context():
         RestaurantPizza.query.delete()
 
         print("Creating restaurants...")
-        shack = Restaurant(name= "Karen's Pizza Shack", address = 'address1')
-        bistro = Restaurant(name= "Sanjay's Pizza", address = 'address2')
-        palace = Restaurant(name= "Kiki's Pizza", address = 'address3')
-        restaurants = [shack, bistro,palace]
+        domino = Restaurant(name= "Domino's Pizza", address = '344 Herbert Macaulay Way')
+        debonair = Restaurant(name= "Debonair's Pizza", address = '93 Awolowo Rd, Ikoyi 106104, Lagos')
+        dodo = Restaurant(name= "Dodo Pizza", address = 'Way, Obafemi Awolowo Way, 194 100001, Lagos')
+        restaurants = [domino, debonair,dodo]
 
 
         print("Creating pizzas...")
@@ -33,9 +33,9 @@ with app.app_context():
         
         print("Creating RestaurantPizza...")
 
-        pr1 = RestaurantPizza(restaurant = shack, pizza = cheese, price = 1)
-        pr2 = RestaurantPizza(restaurant = bistro, pizza = pepperoni, price = 4)
-        pr3 = RestaurantPizza(restaurant = palace, pizza = california, price = 5)
+        pr1 = RestaurantPizza(restaurant = domino, pizza = cheese, price = 1)
+        pr2 = RestaurantPizza(restaurant = debonair, pizza = pepperoni, price = 4)
+        pr3 = RestaurantPizza(restaurant = dodo, pizza = california, price = 5)
         restaurantPizzas = [pr1, pr2, pr3]
 
         db.session.add_all(restaurants)
