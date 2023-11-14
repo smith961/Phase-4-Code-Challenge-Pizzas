@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from flask import Flask, make_response,jsonify,request
+from flask import Flask, make_response,request
 from flask_migrate import Migrate
 
 
